@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+ {% block jumbotron %}
+ 	<div class="jumbotron">
+    <h1>Photopedia</h1>
+    <p>This is a unique website that will take u to a pictorial tour of the everyday objects to the historical objects from science to existence of god. Come enjoy the journey</p>
+    </div>
+ {% endblock %}
+
+      
+{% block content %}
+<div class="row">
+        <div class="col-md-3">
+          <a href ="{% url 'fruits' %}"><img src="{% static 'img/3.jpg' %}" class = 'img-responsive'/></a>
+        </div>
+        <div class="col-md-3">
+          <a href ="{% url 'animals' %}"><img src="{% static 'img/3.jpg' %}" class = 'img-responsive'/></a>
+       </div>
+       <div class="col-md-3">
+          <a href ="{% url 'flowers' %}"><img src="{% static 'img/3.jpg' %}" class = 'img-responsive'/></a>
+       </div>
+        <div class="col-md-3">
+        	{% if user.is_authenticated %}
+          <a href ="{% url 'flowers' %}"><img src="{% static 'img/3.jpg' %}" class = 'img-responsive'/></a>
+        	{% else %}
+          	<form class="login" method="POST" action="{% url 'account_login' %}">{% csrf_token %}
+					<div id="div_id_login" class="form-group"> <label for="id_login" class="control-label  requiredField">
+		                Login<span class="asteriskField">*</span> </label> <div class="controls "> <input type="text" name="login" placeholder="Username or e-mail" autofocus="autofocus" class="textinput textInput form-control" required="" id="id_login"> </div> </div> <div id="div_id_password" class="form-group"> <label for="id_password" class="control-label  requiredField">
+		                Password<span class="asteriskField">*</span> </label> <div class="controls "> <input type="password" name="password" placeholder="Password" class="textinput textInput form-control" required="" id="id_password"> </div> </div> <div class="form-group"> <div id="div_id_remember" class="checkbox"> <label for="id_remember" class=""> <input type="checkbox" name="remember" class="checkboxinput" id="id_remember">
+		                    Remember Me
+		                </label> </div> </div>
+		      <a class="button secondaryAction btn btn-link" href="{% url 'account_reset_password' %}">Forgot Password?</a>
+		      <a class="button secondaryAction btn btn-link" href="{% url 'account_signup' %}">Sign Up</a>
+		      <button class="primaryAction btn btn-default" type="submit">Sign In</button>
+		    </form> 
+		    {% endif %}
+        </div>
+      </div>
+{% endblock %}
